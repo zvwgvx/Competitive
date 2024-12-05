@@ -41,6 +41,7 @@ signed main() {
         prefix[i] = prefix[i - 1] + array[i];    
     }
 
+    
 
     return 0;   
 }
