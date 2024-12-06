@@ -1,0 +1,5 @@
+Makefile
+*.out
+.vscode
+input.txt
+output.txt
