@@ -4,6 +4,8 @@
 #pragma GCC optimize("no-stack-protector") 
 #pragma GCC optimize("Ofast,unroll-loops")
 
+// #pragma GCC target("avx,avx2,fma")
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -15,34 +17,6 @@ using namespace std;
 #define f(array) (array).begin(), (array).end()
 #define b(array) (array).rbegin(), (array).rend()
 
-const ll MAXQ = 1e6;
- 
-bitset<MAXQ> sieve(int N) {
-    bitset<MAXQ> is_prime; 
-
-    is_prime.set(); 
-
-    is_prime[0] = is_prime[1] = 0;
-
-    for (int i = 2; i * i <= N; ++i) {
-        if (is_prime[i]) {
-            for (int j = i * i; j <= N; j += i) {
-                is_prime[j] = 0; 
-            }
-        }
-    }
-    return is_prime;
-} 
-
-ll reve(ll N) {
-    ll rev = 0;
-    while (N > 0) {
-        rev = rev * 10 + N % 10;
-        N /= 10;
-    }
-    return rev;
-}
-
 signed main() { 
     cin.tie(nullptr), cout.tie(nullptr) 
     -> ios_base::sync_with_stdio(false);
@@ -53,16 +27,26 @@ signed main() {
             freopen (file ".out", "w", stdout);
     #endif  
 
-    ll left, right;
+    ll N;
 
-    cin >> left >> right;
+    cin >> N;
 
-    bitset <MAXQ> is_prime = sieve(MAXQ);
+    v <ll> array(N), dpa(N), dpb(N);
 
-    for (int i = left; i <= right; ++i) {
-        if (is_prime[reve(i)]) {
-            cout << i << '\n';
+    for (int i = 0; i < N; ++i) {
+        cin >> array[i];
+    }
+
+    for (int i = 0; i < N; ++i) {
+        for (int j = 0; j < i; ++j) {
+            if (array[j] < array[i]) {
+                dpa[i] = max(dpa[j] + 1, dpa[i]);
+            }
         }
+    }
+
+    for (auto e : dpa) {
+        cout << e << " ";
     }
     return 0;   
 }
