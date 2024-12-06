@@ -3,7 +3,8 @@
 #pragma GCC optimize("fast-math")
 #pragma GCC optimize("no-stack-protector") 
 #pragma GCC optimize("Ofast,unroll-loops")
-#pragma GCC target("avx,avx2,fma")
+
+// #pragma GCC target("avx,avx2,fma")
 
 #include <bits/stdc++.h>
 
@@ -26,19 +27,23 @@ signed main() {
             freopen (file ".out", "w", stdout);
     #endif  
 
-    ll N;
-    
-    cin >> N;
+    string s;
+    cin >> s;
+    ll count = 0;
 
-    if (N < 2) {
-        cout << 0;
-        return 0;
-    } else if (N == 2) {
-        cout << 1;
-        return 0;
-    } else {
-        cout << N * (N - 1) / 2;
-        return 0;
+    for (int i = 0; i < s.size(); ++i) {
+        for (int j = i; j < s.size(); ++j) {
+            ll num = 0;
+            for (int k = i; k <= j; ++k) {
+                num = num * 10 + (s[k] - '0');
+            }
+            if (num % 4 == 0) {
+                count++;
+            }
+        }
     }
+
+    cout << count;
+
     return 0;   
 }

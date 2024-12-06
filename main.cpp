@@ -27,26 +27,39 @@ signed main() {
             freopen (file ".out", "w", stdout);
     #endif  
 
-    ll N;
+    int queries;
+    cin >> queries;
+    
+    while (queries--) {
+        ll N;
+        cin >> N;
+        ll count = 0;
+        v <ll> factors;
 
-    cin >> N;
-
-    v <ll> array(N), dpa(N), dpb(N);
-
-    for (int i = 0; i < N; ++i) {
-        cin >> array[i];
-    }
-
-    for (int i = 0; i < N; ++i) {
-        for (int j = 0; j < i; ++j) {
-            if (array[j] < array[i]) {
-                dpa[i] = max(dpa[j] + 1, dpa[i]);
+        for (ll i = 1; i * i <= N; ++i) {
+            if (N % i == 0) {
+                count++;
+                if (i != N / i) count++; 
             }
         }
+
+
+        for (ll i = 2; i * i <= N; ++i) {
+            while (N % i == 0) {
+                factors.push_back(i);
+                N /= i;
+            }
+        }
+        if (N > 1) factors.push_back(N); 
+
+
+        cout << count << " ";
+        for (size_t j = 0; j < factors.size(); ++j) {
+            cout << factors[j];
+            if (j < factors.size() - 1) cout << "*";
+        }
+        cout << endl;
     }
 
-    for (auto e : dpa) {
-        cout << e << " ";
-    }
     return 0;   
 }
