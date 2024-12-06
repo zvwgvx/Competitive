@@ -1,4 +1,4 @@
-git remote add origin https://github.com/username/repository.git
+git remote set-url origin git@github.com:zvwgvx/Competitive.git
 git add .
 git commit -m "Upload files to GitHub"
 git branch -M main
